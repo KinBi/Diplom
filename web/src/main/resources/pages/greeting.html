@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600,300" rel="stylesheet" type="text/css">
+    <title>BNTU</title>
+</head>
+
+<body>
+<div class="wrapper">
+    <section class="main">
+        <header class="header">
+            <div class="header__container">
+                <div class="header__body">
+                    <div class="header__body__left_side">
+                        <img src="/static/assets/belarusian-national-technical-university.png" alt="BTNU logotype"
+                             class="main_news__header__logotype">
+                        <nav class="header__menu">
+                            <ul class="header__links">
+                                <li>
+                                    <a href="#!">Документы</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Преподаватели</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Расписание</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header__body__right_side">
+                        <p>Профиль</p>
+                        <div class="header__body__right_side__profile_arrows">
+                                <span class="profile_arrow left">
+
+                                </span>
+                            <span class="profile_arrow right">
+
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_toolbar">
+                    <img class="profile_icon" src="/static/assets/profile.png" alt="profile">
+                    <div class="header_toolbar__buttons">
+                        <a href="#!" class="header_toolbar__buttons_edit">Редактировать</a>
+                        <form action="/logout" method="post">
+                            <button class="header_toolbar__buttons_exit" type="submit">Выйти</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <h1>Личный кабинет</h1>
+        <div class="main__grid">
+            <div class="main__grid_body">
+                <div class="main__grid_item main__grid_item__1">
+                    <div class="main__grid_item_contract">
+                        <p>Статус договора:</p>
+                        <span class="main__grid_item_contract_circle"></span>
+                    </div>
+                </div>
+                <div class="main__grid_item main__grid_item__2">
+                    <div class="main__grid_item_name">
+                        <p th:text="${user.name}" />
+                    </div>
+                </div>
+                <div class="main__grid_item main__grid_item__3">
+                    <div class="main__grid_item_email">
+                        <p>Email:</p>
+                        <p class="main__grid_item_email_value" th:text="${user.email}" />
+                    </div>
+                </div>
+                <div class="main__grid_item main__grid_item__4">
+                    <div class="main__grid_item_place">
+                        <p>Место прохождения практики:</p>
+                        <p th:text="${user.place}" />
+                    </div>
+                </div>
+                <div class="main__grid_item main__grid_item__5">
+                    <div class="main__grid_item_number">
+                        <p>Телефон:</p>
+                        <p class="main__grid_item_number_value" th:text="${user.phone}" />
+                    </div>
+                </div>
+                <div class="main__grid_item main__grid_item__6">
+                    <div class="main__grid_item_teacher">
+                        <p>Преподаватель:</p>
+                        <p class="main__grid_item_teacher_value" th:text="${user.teacher}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="asddd">
+
+    </section>
+    <footer class="footer">
+        <div class="footer__body">
+            <div class="footer__body__right_side">
+                <p>Copyright: ©BNTU</p>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="/static/script/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600,300" rel="stylesheet" type="text/css">
+    <title>Login</title>
+</head>
+
+<body>
+<div class="wrapper">
+    <form action="/login" method="post">
+        <section class="main">
+            <header class="header">
+                <div class="header__container">
+                    <div class="header__body">
+                        <div class="header__body__left_side">
+                            <img src="/static/assets/belarusian-national-technical-university.png" alt="BTNU logotype"
+                                 class="main_news__header__logotype">
+                            <nav class="header__menu">
+                                <ul class="header__links">
+                                    <li>
+                                        <a href="#!">Документы</a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">Преподаватели</a>
+                                    </li>
+                                    <li>
+                                        <a href="#!">Расписание</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="header__body__right_side">
+                            <p>Профиль</p>
+                            <div class="header__body__right_side__profile_arrows">
+                                <span class="profile_arrow left">
+
+                                </span>
+                                <span class="profile_arrow right">
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_toolbar">
+
+                </div>
+            </header>
+            <div class="main__body">
+                <img class="profile_icon" src="/static/assets/profile.png" alt="profile">
+                <p>Логин</p>
+                <input type="text" id="username" name="username">
+                <p>Пароль</p>
+                <input type="password" id="password" name="password">
+                <!--                <a href="greeting.html" class="main__body__button">Войти</a>-->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button class="main__body__button" type="submit">Войти</button>
+            </div>
+        </section>
+    </form>
+    <footer class="footer">
+        <div class="footer__body">
+            <div class="footer__body__right_side">
+                <p>Copyright: ©BNTU</p>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
