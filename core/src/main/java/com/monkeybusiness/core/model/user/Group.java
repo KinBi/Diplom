@@ -1,10 +1,10 @@
-package com.monkeybusiness.core.model.practice;
+package com.monkeybusiness.core.model.user;
 
 import java.util.Objects;
 
-public class PracticeStatus {
+public class Group {
   private Long id;
-  private String status;
+  private Speciality speciality;
 
   public Long getId() {
     return id;
@@ -14,20 +14,20 @@ public class PracticeStatus {
     this.id = id;
   }
 
-  public String getStatus() {
-    return status;
+  public Speciality getSpeciality() {
+    return speciality;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setSpeciality(Speciality speciality) {
+    this.speciality = speciality;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    PracticeStatus that = (PracticeStatus) o;
-    return Objects.equals(id, that.id);
+    Group group = (Group) o;
+    return Objects.equals(id, group.id);
   }
 
   @Override

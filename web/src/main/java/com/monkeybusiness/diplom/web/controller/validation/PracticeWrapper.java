@@ -1,12 +1,20 @@
-package com.monkeybusiness.core.model.practice;
+package com.monkeybusiness.diplom.web.controller.validation;
 
-import java.util.Objects;
+import com.monkeybusiness.core.model.practice.PracticeStatus;
+import org.hibernate.validator.constraints.NotEmpty;
 
-public class Practice {
+public class PracticeWrapper {
   private Long id;
+
+  @NotEmpty
   private String practiceDateStart;
+
+  @NotEmpty
   private String practiceDateEnd;
+
+  @NotEmpty
   private String location;
+
   private PracticeStatus status;
 
   public Long getId() {
@@ -47,17 +55,5 @@ public class Practice {
 
   public void setStatus(PracticeStatus status) {
     this.status = status;
-  }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Practice practice = (Practice) o;
-    return Objects.equals(id, practice.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
   }
 }

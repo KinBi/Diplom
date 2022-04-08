@@ -1,8 +1,8 @@
-package com.monkeybusiness.core.model.practice;
+package com.monkeybusiness.core.model.document;
 
 import java.util.Objects;
 
-public class PracticeStatus {
+public class DocumentStatus {
   private Long id;
   private String status;
 
@@ -26,7 +26,7 @@ public class PracticeStatus {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    PracticeStatus that = (PracticeStatus) o;
+    DocumentStatus that = (DocumentStatus) o;
     return Objects.equals(id, that.id);
   }
 

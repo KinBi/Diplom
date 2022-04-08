@@ -18,12 +18,13 @@ import java.util.Optional;
 public class JdbcPracticeDao implements PracticeDao {
   public static final String SELECT_PRACTICE_BY_ID = "SELECT * FROM practices WHERE id = ?";
   public static final String SELECT_ALL_PRACTICES = "SELECT * FROM practices";
-  public static final String UPDATE_PRACTICE = "UPDATE practices SET date = ?, location = ?, statusId = ?, mark = ?";
-  public static final String SELECT_STATUS_BY_PRACTICE_ID = "SELECT practiceStatuses.status FROM practiceStatuses " +
+  public static final String UPDATE_PRACTICE = "UPDATE practices SET practiceDateStart = ?, practiceDateEnd = ?, " +
+          "location = ?, statusId = ? WHERE id = ?";
+  public static final String SELECT_STATUS_BY_PRACTICE_ID = "SELECT practiceStatuses.* FROM practiceStatuses " +
           "JOIN practices ON practices.statusId = practiceStatuses.id WHERE practices.id = ?";
+  public static final String DELETE_PRACTICE = "DELETE FROM practices WHERE id = ?";
   public static final String PRACTICES_TABLE = "practices";
   public static final String ID_COLUMN = "id";
-  public static final String DELETE_PRACTICE = "DELETE FROM practices WHERE id = ?";
 
   @Autowired
   private JdbcTemplate jdbcTemplate;
@@ -77,7 +78,8 @@ public class JdbcPracticeDao implements PracticeDao {
   @Override
   public void update(Practice practice) {
     // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
-    jdbcTemplate.update(UPDATE_PRACTICE);
+    jdbcTemplate.update(UPDATE_PRACTICE, practice.getPracticeDateStart(), practice.getPracticeDateEnd(),
+            practice.getLocation(), practice.getStatus().getId(), practice.getId());
   }
 
   @Override

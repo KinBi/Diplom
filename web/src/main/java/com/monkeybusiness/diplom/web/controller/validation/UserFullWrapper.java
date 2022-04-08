@@ -1,14 +1,28 @@
-package com.monkeybusiness.core.model.user;
+package com.monkeybusiness.diplom.web.controller.validation;
 
-import java.util.Objects;
+import com.monkeybusiness.core.model.user.Group;
+import com.monkeybusiness.core.model.user.Role;
+import org.hibernate.validator.constraints.NotEmpty;
 
-public class User {
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+public class UserFullWrapper {
   private Long id;
+
+  @NotEmpty(message = "Cannot be empty")
   private String username;
+
+  @NotEmpty(message = "Cannot be empty")
   private String password;
 
+  @NotEmpty(message = "Cannot be empty")
   private Role role;
+
+  @NotNull
+  @Min(value = 1, message = "Cannot be empty")
   private Long practiceId;
+
   private Group group;
 
   public Long getId() {
@@ -57,18 +71,5 @@ public class User {
 
   public void setGroup(Group group) {
     this.group = group;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    User user = (User) o;
-    return Objects.equals(id, user.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
   }
 }

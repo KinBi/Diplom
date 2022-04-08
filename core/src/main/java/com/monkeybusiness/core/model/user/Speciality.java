@@ -1,10 +1,10 @@
-package com.monkeybusiness.core.model.practice;
+package com.monkeybusiness.core.model.user;
 
 import java.util.Objects;
 
-public class Mark {
+public class Speciality {
   private Long id;
-  private Integer mark;
+  private String speciality;
 
   public Long getId() {
     return id;
@@ -14,20 +14,20 @@ public class Mark {
     this.id = id;
   }
 
-  public Integer getMark() {
-    return mark;
+  public String getSpeciality() {
+    return speciality;
   }
 
-  public void setMark(Integer mark) {
-    this.mark = mark;
+  public void setSpeciality(String speciality) {
+    this.speciality = speciality;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Mark mark = (Mark) o;
-    return Objects.equals(id, mark.id);
+    Speciality that = (Speciality) o;
+    return Objects.equals(id, that.id);
   }
 
   @Override
