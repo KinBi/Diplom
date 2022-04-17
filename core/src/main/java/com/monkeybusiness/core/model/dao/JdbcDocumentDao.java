@@ -39,7 +39,6 @@ public class JdbcDocumentDao implements DocumentDao {
 
   @Override
   public Optional<Document> find(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     Optional<Document> optionalDocument;
     List<Document> documentList = jdbcTemplate.query(SELECT_DOCUMENT_BY_ID,
             new BeanPropertyRowMapper<>(Document.class), id);
@@ -55,7 +54,6 @@ public class JdbcDocumentDao implements DocumentDao {
 
   @Override
   public List<Document> findAll() {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     List<Document> documents;
     documents = jdbcTemplate.query(SELECT_ALL_DOCUMENTS, new BeanPropertyRowMapper<>(Document.class));
     documents.forEach(this::setStatus);
@@ -64,7 +62,6 @@ public class JdbcDocumentDao implements DocumentDao {
 
   @Override
   public void save(Document document) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     addPractice(document);
   }
 
@@ -76,14 +73,12 @@ public class JdbcDocumentDao implements DocumentDao {
 
   @Override
   public void update(Document document) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     jdbcTemplate.update(UPDATE_DOCUMENT, document.getPath(),
             document.getUserId(), document.getDocumentStatus().getId(), document.getId());
   }
 
   @Override
   public void delete(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     jdbcTemplate.update(DELETE_DOCUMENT, id);
   }
 }

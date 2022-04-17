@@ -81,7 +81,7 @@ INSERT INTO specialities(speciality) VALUES ('test_speciality');
 INSERT INTO groups(specialityId) VALUES (1);
 INSERT INTO practiceStatuses(status) VALUES ('test_status');
 INSERT INTO practices(practiceDateStart, practiceDateEnd, location, statusId) VALUES ('12/12/2021', '13/12/2021', 'test_location', 1);
-INSERT INTO roles(role) VALUES ('admin');
+INSERT INTO roles(role) VALUES ('admin', 'zavkaf', 'orgpract', 'rukprakt', 'student');
 INSERT INTO users(username, password, roleId, practiceId, groupId) VALUES ('admin', 'admin', 1, 1, 1);
 INSERT INTO marks(practiceId, userId, mark) VALUES (1, 1, 1);
 INSERT INTO documentStatuses(status) VALUES ('test_status');

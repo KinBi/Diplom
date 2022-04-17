@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/organizator")
-public class OrganizatorPageController {
+@RequestMapping("/orgprakt")
+public class OrgpraktController {
   public static final String DELIMITER = "\n";
   public static final String ADD_SUCCESS_MESSAGE = "Added successfully";
   public static final String UPDATE_SUCCESS_MESSAGE = "Updated successfully";

@@ -1,7 +1,6 @@
 package com.monkeybusiness.core.model.dao;
 
 import com.monkeybusiness.core.model.document.Document;
-import com.monkeybusiness.core.model.practice.Practice;
 
 import java.util.List;
 import java.util.Optional;

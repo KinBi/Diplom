@@ -48,7 +48,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public Optional<User> find(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     Optional<User> optionalUser;
     List<User> userList = jdbcTemplate.query(SELECT_USER_BY_ID, new BeanPropertyRowMapper<>(User.class), id);
     optionalUser = userList.isEmpty() ? Optional.empty() : Optional.ofNullable(userList.get(0));
@@ -59,7 +58,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public Optional<User> findByUsername(String username) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     Optional<User> optionalUser;
     List<User> userList = jdbcTemplate.query(SELECT_USER_BY_USERNAME, new BeanPropertyRowMapper<>(User.class), username);
     optionalUser = userList.isEmpty() ? Optional.empty() : Optional.ofNullable(userList.get(0));
@@ -89,7 +87,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public List<User> findAll() {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     List<User> users;
     users = jdbcTemplate.query(SELECT_ALL_USERS, new BeanPropertyRowMapper<>(User.class));
     users.forEach(this::setRole);
@@ -99,7 +96,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public void save(User user) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     Optional<Long> optionalId = getUserId(user);
     if (optionalId.isPresent()) {
       update(user);
@@ -121,7 +117,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public void update(User user) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     user.setId(getUserId(user).orElseThrow(RuntimeException::new)); // fixme
     jdbcTemplate.update(UPDATE_USER, user.getUsername(), user.getPassword(), user.getRole().getId(),
             user.getPracticeId(), user.getGroup().getId(), user.getId());
@@ -129,7 +124,6 @@ public class JdbcUserDao implements UserDao {
 
   @Override
   public void delete(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     jdbcTemplate.update(DELETE_USER, id);
   }
 }
