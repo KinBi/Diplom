@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class UserController {
   public static final String DELIMITER = "\n";
   public static final String ADD_SUCCESS_MESSAGE = "Added successfully";
   public static final String UPDATE_SUCCESS_MESSAGE = "Updated successfully";

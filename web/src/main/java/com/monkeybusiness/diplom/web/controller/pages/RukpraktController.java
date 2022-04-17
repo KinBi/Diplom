@@ -6,7 +6,7 @@ import com.monkeybusiness.core.model.service.DocumentService;
 import com.monkeybusiness.core.model.service.PracticeService;
 import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.OrganizatorDto;
+import com.monkeybusiness.diplom.web.controller.dto.UserDto;
 import com.monkeybusiness.diplom.web.controller.validation.DocumentWrapper;
 import com.monkeybusiness.diplom.web.controller.validation.IdWrapper;
 import com.monkeybusiness.diplom.web.controller.validation.PracticeWrapper;
@@ -52,7 +52,7 @@ public class RukpraktController {
 
   @DeleteMapping
   @ResponseBody
-  public OrganizatorDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
+  public UserDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -64,7 +64,7 @@ public class RukpraktController {
 
   @PutMapping
   @ResponseBody
-  public OrganizatorDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+  public UserDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -82,7 +82,7 @@ public class RukpraktController {
 
   @PostMapping
   @ResponseBody
-  public OrganizatorDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+  public UserDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -100,7 +100,7 @@ public class RukpraktController {
 
   @PostMapping("/addToGroup")
   @ResponseBody
-  public OrganizatorDto addUserToGroup(@RequestBody @Valid UserFullWrapper userFullWrapper, BindingResult bindingResult) {
+  public UserDto addUserToGroup(@RequestBody @Valid UserFullWrapper userFullWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -118,7 +118,7 @@ public class RukpraktController {
 
   @PostMapping("/addDocumentStatus")
   @ResponseBody
-  public OrganizatorDto addDocumentStatus(@RequestBody @Valid DocumentWrapper documentWrapper, BindingResult bindingResult) {
+  public UserDto addDocumentStatus(@RequestBody @Valid DocumentWrapper documentWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -133,9 +133,9 @@ public class RukpraktController {
     return createOrganizatorDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
   }
 
-  private OrganizatorDto createOrganizatorDto(boolean successful, BindingResult bindingResult, String successMessage) {
-    OrganizatorDto organizatorDto = new OrganizatorDto();
-    organizatorDto.setSuccessful(successful);
+  private UserDto createOrganizatorDto(boolean successful, BindingResult bindingResult, String successMessage) {
+    UserDto UserDto = new UserDto();
+    UserDto.setSuccessful(successful);
     String message;
     if (!successful) {
       message = bindingResult.getAllErrors().stream()
@@ -144,7 +144,7 @@ public class RukpraktController {
     } else {
       message = successMessage;
     }
-    organizatorDto.setMessage(message);
-    return organizatorDto;
+    UserDto.setMessage(message);
+    return UserDto;
   }
 }

@@ -1,6 +1,6 @@
 package com.monkeybusiness.diplom.web.controller.dto;
 
-public class OrganizatorDto {
+public class UserDto {
   private String message;
   private boolean isSuccessful;
 

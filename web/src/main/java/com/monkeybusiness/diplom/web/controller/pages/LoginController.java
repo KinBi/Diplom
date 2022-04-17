@@ -2,7 +2,7 @@ package com.monkeybusiness.diplom.web.controller.pages;
 
 import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.LoginDto;
+import com.monkeybusiness.diplom.web.controller.dto.UserDto;
 import com.monkeybusiness.diplom.web.controller.validation.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/login")
-public class LoginPageController {
+public class LoginController {
   public static final String DELIMITER = "\n";
   public static final String BAD_PASSWORD_MESSAGE = "Bad password";
   public static final String USER_ID_SESSION_ATTRIBUTE = "userId";
@@ -32,7 +32,7 @@ public class LoginPageController {
 
   @PostMapping
   @ResponseBody
-  public LoginDto login(@RequestBody @Valid UserWrapper userWrapper, BindingResult bindingResult, HttpSession session) {
+  public UserDto login(@RequestBody @Valid UserWrapper userWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -48,14 +48,14 @@ public class LoginPageController {
     return createLoginDto(successful, bindingResult);
   }
 
-  private LoginDto createLoginDto(boolean successful, BindingResult bindingResult) {
-    LoginDto loginDto = new LoginDto();
-    loginDto.setSuccessful(successful);
+  private UserDto createLoginDto(boolean successful, BindingResult bindingResult) {
+    UserDto UserDto = new UserDto();
+    UserDto.setSuccessful(successful);
     if (!successful) {
-      loginDto.setMessage(bindingResult.getAllErrors().stream()
+      UserDto.setMessage(bindingResult.getAllErrors().stream()
               .map(DefaultMessageSourceResolvable::getDefaultMessage)
               .collect(Collectors.joining(DELIMITER)));
     }
-    return loginDto;
+    return UserDto;
   }
 }

@@ -4,7 +4,7 @@ import com.monkeybusiness.core.model.practice.Practice;
 import com.monkeybusiness.core.model.service.PracticeService;
 import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.HeadDto;
+import com.monkeybusiness.diplom.web.controller.dto.UserDto;
 import com.monkeybusiness.diplom.web.controller.validation.UserFullWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -42,7 +42,7 @@ public class ZavkafController {
 
 //  @DeleteMapping
 //  @ResponseBody
-//  public HeadDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
+//  public UserDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -54,7 +54,7 @@ public class ZavkafController {
 
 //  @PutMapping
 //  @ResponseBody
-//  public HeadDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+//  public UserDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -72,7 +72,7 @@ public class ZavkafController {
 
 //  @PostMapping
 //  @ResponseBody
-//  public HeadDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+//  public UserDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -90,7 +90,7 @@ public class ZavkafController {
 
   @PutMapping
   @ResponseBody
-  public HeadDto updateUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult) {
+  public UserDto updateUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -106,9 +106,9 @@ public class ZavkafController {
     return createHeadDto(successful, bindingResult, UPDATE_SUCCESS_MESSAGE);
   }
 
-  private HeadDto createHeadDto(boolean successful, BindingResult bindingResult, String successMessage) {
-    HeadDto headDto = new HeadDto();
-    headDto.setSuccessful(successful);
+  private UserDto createHeadDto(boolean successful, BindingResult bindingResult, String successMessage) {
+    UserDto UserDto = new UserDto();
+    UserDto.setSuccessful(successful);
     String message;
     if (!successful) {
       message = bindingResult.getAllErrors().stream()
@@ -117,7 +117,7 @@ public class ZavkafController {
     } else {
       message = successMessage;
     }
-    headDto.setMessage(message);
-    return headDto;
+    UserDto.setMessage(message);
+    return UserDto;
   }
 }
