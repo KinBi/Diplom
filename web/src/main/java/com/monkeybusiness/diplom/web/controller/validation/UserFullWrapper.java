@@ -1,44 +1,55 @@
 package com.monkeybusiness.diplom.web.controller.validation;
 
 import com.monkeybusiness.core.model.user.Group;
-import com.monkeybusiness.core.model.user.Role;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 public class UserFullWrapper {
-  private Long id;
+  @NotEmpty(message = "Cannot be empty")
+  private String name;
 
   @NotEmpty(message = "Cannot be empty")
-  private String username;
+  private String surname;
+
+  @NotEmpty(message = "Cannot be empty")
+  private String middleName;
+
+  private String login;
 
   @NotEmpty(message = "Cannot be empty")
   private String password;
 
-  @NotEmpty(message = "Cannot be empty")
-  private Role role;
+  private String groupCode;
 
-  @NotNull
-  @Min(value = 1, message = "Cannot be empty")
-  private Long practiceId;
-
-  private Group group;
-
-  public Long getId() {
-    return id;
+  public String getLogin() {
+    return login;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setLogin(String login) {
+    this.login = login;
   }
 
-  public String getUsername() {
-    return username;
+  public String getName() {
+    return name;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getSurname() {
+    return surname;
+  }
+
+  public void setSurname(String surname) {
+    this.surname = surname;
+  }
+
+  public String getMiddleName() {
+    return middleName;
+  }
+
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
   }
 
   public String getPassword() {
@@ -49,27 +60,11 @@ public class UserFullWrapper {
     this.password = password;
   }
 
-  public Role getRole() {
-    return role;
+  public String getGroupCode() {
+    return groupCode;
   }
 
-  public void setRole(Role role) {
-    this.role = role;
-  }
-
-  public Long getPracticeId() {
-    return practiceId;
-  }
-
-  public void setPracticeId(Long practiceId) {
-    this.practiceId = practiceId;
-  }
-
-  public Group getGroup() {
-    return group;
-  }
-
-  public void setGroup(Group group) {
-    this.group = group;
+  public void setGroupCode(String groupCode) {
+    this.groupCode = groupCode;
   }
 }

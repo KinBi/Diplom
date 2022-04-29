@@ -3,8 +3,9 @@ package com.monkeybusiness.diplom.web.controller.pages;
 import com.monkeybusiness.core.model.practice.Practice;
 import com.monkeybusiness.core.model.service.PracticeService;
 import com.monkeybusiness.core.model.service.UserService;
+import com.monkeybusiness.core.model.user.Roles;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.UserDto;
+import com.monkeybusiness.diplom.web.controller.dto.MessageDto;
 import com.monkeybusiness.diplom.web.controller.validation.UserFullWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -42,7 +43,7 @@ public class ZavkafController {
 
 //  @DeleteMapping
 //  @ResponseBody
-//  public UserDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
+//  public MessageDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -54,7 +55,7 @@ public class ZavkafController {
 
 //  @PutMapping
 //  @ResponseBody
-//  public UserDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+//  public MessageDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -72,7 +73,7 @@ public class ZavkafController {
 
 //  @PostMapping
 //  @ResponseBody
-//  public UserDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+//  public MessageDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
 //    boolean successful = true;
 //    if (bindingResult.hasErrors()) {
 //      successful = false;
@@ -90,25 +91,26 @@ public class ZavkafController {
 
   @PutMapping
   @ResponseBody
-  public UserDto updateUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult) {
+  public MessageDto updateUser(@RequestBody @Valid UserFullWrapper userFullWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
     } else {
       User user = new User();
-      user.setId(userAdminWrapper.getId());
-      user.setUsername(userAdminWrapper.getUsername());
-      user.setPassword(userAdminWrapper.getPassword());
-      user.setRole(userAdminWrapper.getRole());
-      user.setPracticeId(userAdminWrapper.getPracticeId());
+      user.setName(userFullWrapper.getName());
+      user.setSurname(userFullWrapper.getSurname());
+      user.setMiddleName(userFullWrapper.getMiddleName());
+      user.setLogin(userFullWrapper.getLogin());
+      user.setPassword(userFullWrapper.getPassword());
+      user.setRole(Roles.STUDENT.name());
       userService.update(user);
     }
     return createHeadDto(successful, bindingResult, UPDATE_SUCCESS_MESSAGE);
   }
 
-  private UserDto createHeadDto(boolean successful, BindingResult bindingResult, String successMessage) {
-    UserDto UserDto = new UserDto();
-    UserDto.setSuccessful(successful);
+  private MessageDto createHeadDto(boolean successful, BindingResult bindingResult, String successMessage) {
+    MessageDto MessageDto = new MessageDto();
+    MessageDto.setSuccessful(successful);
     String message;
     if (!successful) {
       message = bindingResult.getAllErrors().stream()
@@ -117,7 +119,7 @@ public class ZavkafController {
     } else {
       message = successMessage;
     }
-    UserDto.setMessage(message);
-    return UserDto;
+    MessageDto.setMessage(message);
+    return MessageDto;
   }
 }

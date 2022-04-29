@@ -2,7 +2,7 @@ package com.monkeybusiness.diplom.web.controller.pages;
 
 import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.UserDto;
+import com.monkeybusiness.diplom.web.controller.dto.MessageDto;
 import com.monkeybusiness.diplom.web.controller.validation.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -32,12 +32,12 @@ public class LoginController {
 
   @PostMapping
   @ResponseBody
-  public UserDto login(@RequestBody @Valid UserWrapper userWrapper, BindingResult bindingResult, HttpSession session) {
+  public MessageDto login(@RequestBody @Valid UserWrapper userWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
     } else {
-      User validUser = userService.getUserByUsername(userWrapper.getUsername());
+      User validUser = userService.getUserByLogin(userWrapper.getLogin());
       if (!validUser.getPassword().equals(userWrapper.getPassword())) {
         successful = false;
         bindingResult.addError(new ObjectError(User.class.toString(), BAD_PASSWORD_MESSAGE));
@@ -48,14 +48,14 @@ public class LoginController {
     return createLoginDto(successful, bindingResult);
   }
 
-  private UserDto createLoginDto(boolean successful, BindingResult bindingResult) {
-    UserDto UserDto = new UserDto();
-    UserDto.setSuccessful(successful);
+  private MessageDto createLoginDto(boolean successful, BindingResult bindingResult) {
+    MessageDto messageDto = new MessageDto();
+    messageDto.setSuccessful(successful);
     if (!successful) {
-      UserDto.setMessage(bindingResult.getAllErrors().stream()
+      messageDto.setMessage(bindingResult.getAllErrors().stream()
               .map(DefaultMessageSourceResolvable::getDefaultMessage)
               .collect(Collectors.joining(DELIMITER)));
     }
-    return UserDto;
+    return messageDto;
   }
 }

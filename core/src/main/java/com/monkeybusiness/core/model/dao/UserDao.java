@@ -1,5 +1,6 @@
 package com.monkeybusiness.core.model.dao;
 
+import com.monkeybusiness.core.model.user.Group;
 import com.monkeybusiness.core.model.user.User;
 
 import java.util.List;
@@ -9,6 +10,8 @@ public interface UserDao {
   Optional<User> find(Long id);
 
   Optional<User> findByUsername(String username);
+
+  List<User> findByGroup(Group group);
 
   List<User> findAll();
 
