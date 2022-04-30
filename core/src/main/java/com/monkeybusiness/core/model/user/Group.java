@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Group {
   private Long id;
-  private Speciality speciality;
+  private String code;
 
   public Long getId() {
     return id;
@@ -14,12 +14,12 @@ public class Group {
     this.id = id;
   }
 
-  public Speciality getSpeciality() {
-    return speciality;
+  public String getCode() {
+    return code;
   }
 
-  public void setSpeciality(Speciality speciality) {
-    this.speciality = speciality;
+  public void setCode(String code) {
+    this.code = code;
   }
 
   @Override
@@ -27,11 +27,11 @@ public class Group {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Group group = (Group) o;
-    return Objects.equals(id, group.id);
+    return Objects.equals(id, group.id) && Objects.equals(code, group.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, code);
   }
 }

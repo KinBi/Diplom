@@ -5,10 +5,11 @@ import com.monkeybusiness.core.model.practice.Practice;
 import com.monkeybusiness.core.model.service.DocumentService;
 import com.monkeybusiness.core.model.service.PracticeService;
 import com.monkeybusiness.core.model.service.UserService;
+import com.monkeybusiness.core.model.user.Roles;
 import com.monkeybusiness.core.model.user.User;
-import com.monkeybusiness.diplom.web.controller.dto.OrganizatorDto;
+import com.monkeybusiness.diplom.web.controller.dto.MessageDto;
 import com.monkeybusiness.diplom.web.controller.validation.DocumentWrapper;
-import com.monkeybusiness.diplom.web.controller.validation.IdWrapper;
+import com.monkeybusiness.diplom.web.controller.validation.LoginWrapper;
 import com.monkeybusiness.diplom.web.controller.validation.PracticeWrapper;
 import com.monkeybusiness.diplom.web.controller.validation.UserFullWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/organizator")
-public class OrganizatorPageController {
+@RequestMapping("/orgprakt")
+public class OrgpractController {
   public static final String DELIMITER = "\n";
   public static final String ADD_SUCCESS_MESSAGE = "Added successfully";
   public static final String UPDATE_SUCCESS_MESSAGE = "Updated successfully";
@@ -44,21 +45,21 @@ public class OrganizatorPageController {
     return practiceService.getAllPractices();
   }
 
-  @DeleteMapping
-  @ResponseBody
-  public OrganizatorDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
-    boolean successful = true;
-    if (bindingResult.hasErrors()) {
-      successful = false;
-    } else {
-      practiceService.delete(idWrapper.getId());
-    }
-    return createOrganizatorDto(successful, bindingResult, DELETE_SUCCESS_MESSAGE);
-  }
+//  @DeleteMapping
+//  @ResponseBody
+//  public MessageDto deletePractice(@RequestBody @Valid LoginWrapper idWrapper, BindingResult bindingResult) {
+//    boolean successful = true;
+//    if (bindingResult.hasErrors()) {
+//      successful = false;
+//    } else {
+//      practiceService.delete(idWrapper.getId());
+//    }
+//    return createOrganizatorDto(successful, bindingResult, DELETE_SUCCESS_MESSAGE);
+//  }
 
   @PutMapping
   @ResponseBody
-  public OrganizatorDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+  public MessageDto updatePractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -76,7 +77,7 @@ public class OrganizatorPageController {
 
   @PostMapping
   @ResponseBody
-  public OrganizatorDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
+  public MessageDto addPractice(@RequestBody @Valid PracticeWrapper practiceWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -94,17 +95,18 @@ public class OrganizatorPageController {
 
   @PostMapping("/addToGroup")
   @ResponseBody
-  public OrganizatorDto addUserToGroup(@RequestBody @Valid UserFullWrapper userFullWrapper, BindingResult bindingResult) {
+  public MessageDto addUserToGroup(@RequestBody @Valid UserFullWrapper userFullWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
     } else {
       User user = new User();
-      user.setUsername(userFullWrapper.getUsername());
+      user.setName(userFullWrapper.getName());
+      user.setSurname(userFullWrapper.getSurname());
+      user.setMiddleName(userFullWrapper.getMiddleName());
+      user.setLogin(userFullWrapper.getLogin());
       user.setPassword(userFullWrapper.getPassword());
-      user.setRole(userFullWrapper.getRole());
-      user.setPracticeId(userFullWrapper.getPracticeId());
-      user.setGroup(userFullWrapper.getGroup());
+      user.setRole(Roles.STUDENT.name());
       userService.save(user);
     }
     return createOrganizatorDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
@@ -112,7 +114,7 @@ public class OrganizatorPageController {
 
   @PostMapping("/addDocumentStatus")
   @ResponseBody
-  public OrganizatorDto addDocumentStatus(@RequestBody @Valid DocumentWrapper documentWrapper, BindingResult bindingResult) {
+  public MessageDto addDocumentStatus(@RequestBody @Valid DocumentWrapper documentWrapper, BindingResult bindingResult) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -127,9 +129,9 @@ public class OrganizatorPageController {
     return createOrganizatorDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
   }
 
-  private OrganizatorDto createOrganizatorDto(boolean successful, BindingResult bindingResult, String successMessage) {
-    OrganizatorDto organizatorDto = new OrganizatorDto();
-    organizatorDto.setSuccessful(successful);
+  private MessageDto createOrganizatorDto(boolean successful, BindingResult bindingResult, String successMessage) {
+    MessageDto MessageDto = new MessageDto();
+    MessageDto.setSuccessful(successful);
     String message;
     if (!successful) {
       message = bindingResult.getAllErrors().stream()
@@ -138,7 +140,7 @@ public class OrganizatorPageController {
     } else {
       message = successMessage;
     }
-    organizatorDto.setMessage(message);
-    return organizatorDto;
+    MessageDto.setMessage(message);
+    return MessageDto;
   }
 }

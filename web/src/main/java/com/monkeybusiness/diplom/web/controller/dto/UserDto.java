@@ -1,24 +1,17 @@
-package com.monkeybusiness.diplom.web.controller.validation;
+package com.monkeybusiness.diplom.web.controller.dto;
 
-import com.monkeybusiness.core.model.user.Group;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class UserFullWrapper {
-  @NotEmpty(message = "Cannot be empty")
+public class UserDto {
   private String name;
 
-  @NotEmpty(message = "Cannot be empty")
   private String surname;
 
-  @NotEmpty(message = "Cannot be empty")
   private String middleName;
 
   private String login;
 
-  @NotEmpty(message = "Cannot be empty")
   private String password;
-
-  private String groupCode;
 
   public String getLogin() {
     return login;
@@ -58,13 +51,5 @@ public class UserFullWrapper {
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public String getGroupCode() {
-    return groupCode;
-  }
-
-  public void setGroupCode(String groupCode) {
-    this.groupCode = groupCode;
   }
 }

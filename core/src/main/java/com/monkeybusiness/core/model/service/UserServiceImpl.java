@@ -1,12 +1,14 @@
 package com.monkeybusiness.core.model.service;
 
 import com.monkeybusiness.core.model.dao.UserDao;
+import com.monkeybusiness.core.model.user.Group;
 import com.monkeybusiness.core.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,9 +23,21 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getUserByUsername(String username) {
-    Optional<User> optionalUser = jdbcUserDao.findByUsername(username);
+  public User getUserByLogin(String login) {
+    Optional<User> optionalUser = jdbcUserDao.findByUsername(login);
     return optionalUser.orElseThrow(RuntimeException::new);
+  }
+
+  @Override
+  public List<User> getUsersWithRoles(List<String> roles) {
+    return getAllUsers().stream()
+            .filter(user -> roles.contains(user.getRole()))
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<User> getUsersByGroup(Group group) {
+    return jdbcUserDao.findByGroup(group);
   }
 
   @Override
@@ -45,5 +59,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public void delete(Long id) {
     jdbcUserDao.delete(id);
+  }
+
+  @Override
+  public void deleteByLogin(String login) {
+    jdbcUserDao.delete(jdbcUserDao.findByUsername(login).get().getId());
   }
 }

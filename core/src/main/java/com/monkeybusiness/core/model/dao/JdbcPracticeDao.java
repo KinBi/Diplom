@@ -56,7 +56,6 @@ public class JdbcPracticeDao implements PracticeDao {
 
   @Override
   public List<Practice> findAll() {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     List<Practice> practices;
     practices = jdbcTemplate.query(SELECT_ALL_PRACTICES, new BeanPropertyRowMapper<>(Practice.class));
     practices.forEach(this::setStatus);
@@ -65,7 +64,6 @@ public class JdbcPracticeDao implements PracticeDao {
 
   @Override
   public void save(Practice practice) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     addPractice(practice);
   }
 
@@ -77,14 +75,12 @@ public class JdbcPracticeDao implements PracticeDao {
 
   @Override
   public void update(Practice practice) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     jdbcTemplate.update(UPDATE_PRACTICE, practice.getPracticeDateStart(), practice.getPracticeDateEnd(),
             practice.getLocation(), practice.getStatus().getId(), practice.getId());
   }
 
   @Override
   public void delete(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     jdbcTemplate.update(DELETE_PRACTICE, id);
   }
 }

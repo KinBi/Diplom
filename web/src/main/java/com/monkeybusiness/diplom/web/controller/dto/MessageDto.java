@@ -1,8 +1,8 @@
 package com.monkeybusiness.diplom.web.controller.dto;
 
-public class OrganizatorDto {
+public class MessageDto {
   private String message;
-  private boolean isSuccessful;
+  private boolean successful;
 
   public String getMessage() {
     return message;
@@ -13,10 +13,10 @@ public class OrganizatorDto {
   }
 
   public boolean isSuccessful() {
-    return isSuccessful;
+    return successful;
   }
 
   public void setSuccessful(boolean successful) {
-    isSuccessful = successful;
+    this.successful = successful;
   }
 }
