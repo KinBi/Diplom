@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/login")
 public class LoginController {
