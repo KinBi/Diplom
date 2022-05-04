@@ -2,6 +2,7 @@ package com.monkeybusiness.diplom.web.controller.pages;
 
 import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.User;
+import com.monkeybusiness.diplom.web.controller.dto.AbstractDto;
 import com.monkeybusiness.diplom.web.controller.dto.MessageDto;
 import com.monkeybusiness.diplom.web.controller.validation.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,10 @@ public class LoginController {
         session.setAttribute(USER_ID_SESSION_ATTRIBUTE, validUser.getId());
       }
     }
-    return createLoginDto(successful, bindingResult);
+    return createLoginDto(successful, bindingResult, session);
   }
 
-  private MessageDto createLoginDto(boolean successful, BindingResult bindingResult) {
+  private MessageDto createLoginDto(boolean successful, BindingResult bindingResult, HttpSession session) {
     MessageDto messageDto = new MessageDto();
     messageDto.setSuccessful(successful);
     if (!successful) {
@@ -56,6 +57,13 @@ public class LoginController {
               .map(DefaultMessageSourceResolvable::getDefaultMessage)
               .collect(Collectors.joining(DELIMITER)));
     }
+
+    addRoleAndId(messageDto, session);
     return messageDto;
+  }
+
+  private void addRoleAndId(AbstractDto dto, HttpSession session) {
+    dto.setUser_role((String) session.getAttribute("user_role"));
+    dto.setUser_id((Long) session.getAttribute("user_id"));
   }
 }

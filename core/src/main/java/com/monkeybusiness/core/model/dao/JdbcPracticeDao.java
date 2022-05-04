@@ -1,7 +1,6 @@
 package com.monkeybusiness.core.model.dao;
 
 import com.monkeybusiness.core.model.practice.Practice;
-import com.monkeybusiness.core.model.practice.PracticeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,10 +17,7 @@ import java.util.Optional;
 public class JdbcPracticeDao implements PracticeDao {
   public static final String SELECT_PRACTICE_BY_ID = "SELECT * FROM practices WHERE id = ?";
   public static final String SELECT_ALL_PRACTICES = "SELECT * FROM practices";
-  public static final String UPDATE_PRACTICE = "UPDATE practices SET practiceDateStart = ?, practiceDateEnd = ?, " +
-          "location = ?, statusId = ? WHERE id = ?";
-  public static final String SELECT_STATUS_BY_PRACTICE_ID = "SELECT practiceStatuses.* FROM practiceStatuses " +
-          "JOIN practices ON practices.statusId = practiceStatuses.id WHERE practices.id = ?";
+  public static final String UPDATE_PRACTICE = "UPDATE practices SET location = ?, status = ? WHERE id = ?";
   public static final String DELETE_PRACTICE = "DELETE FROM practices WHERE id = ?";
   public static final String PRACTICES_TABLE = "practices";
   public static final String ID_COLUMN = "id";
@@ -40,25 +36,17 @@ public class JdbcPracticeDao implements PracticeDao {
 
   @Override
   public Optional<Practice> find(Long id) {
-    // FIXME: 12/12/2021 GET INFO ABOUT LOCKS
     Optional<Practice> optionalPractice;
     List<Practice> practiceList = jdbcTemplate.query(SELECT_PRACTICE_BY_ID,
             new BeanPropertyRowMapper<>(Practice.class), id);
     optionalPractice = practiceList.isEmpty() ? Optional.empty() : Optional.ofNullable(practiceList.get(0));
-    optionalPractice.ifPresent(this::setStatus);
     return optionalPractice;
-  }
-
-  private void setStatus(Practice practice) {
-    practice.setStatus(jdbcTemplate.query(SELECT_STATUS_BY_PRACTICE_ID,
-            new BeanPropertyRowMapper<>(PracticeStatus.class), practice.getId()).get(0));
   }
 
   @Override
   public List<Practice> findAll() {
     List<Practice> practices;
     practices = jdbcTemplate.query(SELECT_ALL_PRACTICES, new BeanPropertyRowMapper<>(Practice.class));
-    practices.forEach(this::setStatus);
     return practices;
   }
 
@@ -75,8 +63,7 @@ public class JdbcPracticeDao implements PracticeDao {
 
   @Override
   public void update(Practice practice) {
-    jdbcTemplate.update(UPDATE_PRACTICE, practice.getPracticeDateStart(), practice.getPracticeDateEnd(),
-            practice.getLocation(), practice.getStatus().getId(), practice.getId());
+    jdbcTemplate.update(UPDATE_PRACTICE, practice.getLocation(), practice.getStatus(), practice.getId());
   }
 
   @Override

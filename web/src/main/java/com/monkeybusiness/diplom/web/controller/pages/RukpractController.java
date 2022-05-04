@@ -72,10 +72,10 @@ public class RukpractController {
     } else {
       Practice practice = new Practice();
       practice.setId(practiceWrapper.getId());
-      practice.setPracticeDateStart(practiceWrapper.getPracticeDateStart());
-      practice.setPracticeDateEnd(practiceWrapper.getPracticeDateEnd());
+//      practice.setPracticeDateStart(practiceWrapper.getPracticeDateStart());
+//      practice.setPracticeDateEnd(practiceWrapper.getPracticeDateEnd());
       practice.setLocation(practiceWrapper.getLocation());
-      practice.setStatus(practiceWrapper.getStatus());
+//      practice.setStatus(practiceWrapper.getStatus());
       practiceService.update(practice);
     }
     return createOrganizatorDto(successful, bindingResult, UPDATE_SUCCESS_MESSAGE);
@@ -90,10 +90,10 @@ public class RukpractController {
     } else {
       Practice practice = new Practice();
       practice.setId(practiceWrapper.getId());
-      practice.setPracticeDateStart(practiceWrapper.getPracticeDateStart());
-      practice.setPracticeDateEnd(practiceWrapper.getPracticeDateEnd());
+//      practice.setPracticeDateStart(practiceWrapper.getPracticeDateStart());
+//      practice.setPracticeDateEnd(practiceWrapper.getPracticeDateEnd());
       practice.setLocation(practiceWrapper.getLocation());
-      practice.setStatus(practiceWrapper.getStatus());
+//      practice.setStatus(practiceWrapper.getStatus());
       practiceService.update(practice);
     }
     return createOrganizatorDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
@@ -129,7 +129,7 @@ public class RukpractController {
       document.setId(documentWrapper.getId());
       document.setPath(documentWrapper.getPath());
       document.setUserId(documentWrapper.getUserId());
-      document.setDocumentStatus(documentWrapper.getStatus());
+//      document.setDocumentStatus(documentWrapper.getStatus());
       documentService.save(document);
     }
     return createOrganizatorDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);

@@ -6,7 +6,7 @@ public class Document {
   private Long id;
   private String path;
   private Long userId;
-  private DocumentStatus documentStatus;
+  private String status;
 
   public Long getId() {
     return id;
@@ -32,12 +32,12 @@ public class Document {
     this.userId = userId;
   }
 
-  public DocumentStatus getDocumentStatus() {
-    return documentStatus;
+  public String getStatus() {
+    return status;
   }
 
-  public void setDocumentStatus(DocumentStatus documentStatus) {
-    this.documentStatus = documentStatus;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   @Override

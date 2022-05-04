@@ -1,12 +1,8 @@
 package com.monkeybusiness.diplom.web.controller.validation;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class UserWrapper {
-  @NotEmpty(message = "Invalid username")
   private String login;
 
-  @NotEmpty(message = "Invalid password")
   private String password;
 
   public UserWrapper() {

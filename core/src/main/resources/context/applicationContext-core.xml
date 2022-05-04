@@ -24,7 +24,6 @@
 
     <jdbc:embedded-database id="dataSource" type="H2" />
 
-
     <jdbc:initialize-database enabled="${db.insertSchema}" data-source="dataSource">
         <jdbc:script location="classpath:db/schema.sql" />
     </jdbc:initialize-database>

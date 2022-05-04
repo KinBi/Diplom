@@ -10,11 +10,11 @@
 
 <script>
     function login() {
-        var username = $('#username').val();
+        var login = $('#login').val();
         var password = $('#password').val();
         var errors = '#errors';
         var user = {};
-        user["username"] = username;
+        user["login"] = login;
         user["password"] = password;
         $.ajax({
             type : "POST",
@@ -75,7 +75,7 @@
             <div class="main__body">
                 <img class="profile_icon" src="${pageContext.servletContext.contextPath}/resources/static/assets/profile.png" alt="profile">
                 <p>Логин</p>
-                <input type="text" id="username" name="username">
+                <input type="text" id="login" name="login">
                 <p>Пароль</p>
                 <input type="password" id="password" name="password">
                 <div id="errors"></div>

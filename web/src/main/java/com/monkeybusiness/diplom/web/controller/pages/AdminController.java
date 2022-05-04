@@ -7,6 +7,7 @@ import com.monkeybusiness.core.model.service.UserService;
 import com.monkeybusiness.core.model.user.Group;
 import com.monkeybusiness.core.model.user.Roles;
 import com.monkeybusiness.core.model.user.User;
+import com.monkeybusiness.diplom.web.controller.dto.AbstractDto;
 import com.monkeybusiness.diplom.web.controller.dto.MessageDto;
 import com.monkeybusiness.diplom.web.controller.dto.UserDto;
 import com.monkeybusiness.diplom.web.controller.dto.UsersDto;
@@ -24,10 +25,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,15 +65,9 @@ public class AdminController {
 
   @GetMapping("/getUsersByGroup")
   @ResponseBody
-  public UsersDto getUsersByGroup(@RequestBody @Valid GroupWrapper groupWrapper, BindingResult bindingResult) {
-    boolean successful = true;
-    List<User> users = new ArrayList<>();
-    if (bindingResult.hasErrors()) {
-      successful = false;
-    } else {
-      Group group = groupService.getGroupByCode(groupWrapper.getCode());
-      users = userService.getUsersByGroup(group);
-    }
+  public UsersDto getUsersByGroup(@RequestParam String code, HttpSession session) {
+    Group group = groupService.getGroupByCode(code);
+    List<User> users = userService.getUsersByGroup(group);
     UsersDto usersDto = new UsersDto();
     usersDto.setUsers(users.stream()
             .map(user -> {
@@ -83,24 +79,25 @@ public class AdminController {
               userDto.setPassword(user.getPassword());
               return userDto;
             }).collect(Collectors.toList()));
+    addRoleAndId(usersDto, session);
     return usersDto;
   }
 
   @DeleteMapping("/deleteUser")
   @ResponseBody
-  public MessageDto deleteUser(@RequestBody @Valid LoginWrapper loginWrapper, BindingResult bindingResult) {
+  public MessageDto deleteUser(@RequestBody @Valid LoginWrapper loginWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
     } else {
       userService.deleteByLogin(loginWrapper.getLogin());
     }
-    return createUserAdminDto(successful, bindingResult, DELETE_SUCCESS_MESSAGE);
+    return createUserAdminDto(successful, bindingResult, DELETE_SUCCESS_MESSAGE, session);
   }
 
   @PutMapping("/updateUser")
   @ResponseBody
-  public MessageDto updateUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult) {
+  public MessageDto updateUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -108,12 +105,12 @@ public class AdminController {
       User user = createUser(userAdminWrapper);
       userService.update(user);
     }
-    return createUserAdminDto(successful, bindingResult, UPDATE_SUCCESS_MESSAGE);
+    return createUserAdminDto(successful, bindingResult, UPDATE_SUCCESS_MESSAGE, session);
   }
 
   @PostMapping("/addUser")
   @ResponseBody
-  public MessageDto addUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult) {
+  public MessageDto addUser(@RequestBody @Valid UserFullWrapper userAdminWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -121,12 +118,12 @@ public class AdminController {
       User user = createUser(userAdminWrapper);
       userService.save(user);
     }
-    return createUserAdminDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
+    return createUserAdminDto(successful, bindingResult, ADD_SUCCESS_MESSAGE, session);
   }
 
   @PostMapping("/addGroup")
   @ResponseBody
-  public MessageDto addGroup(@RequestBody @Valid GroupWrapper groupWrapper, BindingResult bindingResult) {
+  public MessageDto addGroup(@RequestBody @Valid GroupWrapper groupWrapper, BindingResult bindingResult, HttpSession session) {
     boolean successful = true;
     if (bindingResult.hasErrors()) {
       successful = false;
@@ -135,7 +132,7 @@ public class AdminController {
       group.setCode(groupWrapper.getCode());
       groupService.save(group);
     }
-    return createUserAdminDto(successful, bindingResult, ADD_SUCCESS_MESSAGE);
+    return createUserAdminDto(successful, bindingResult, ADD_SUCCESS_MESSAGE, session);
   }
 
   private User createUser(UserFullWrapper userAdminWrapper) {
@@ -150,7 +147,7 @@ public class AdminController {
     return user;
   }
 
-  private MessageDto createUserAdminDto(boolean successful, BindingResult bindingResult, String successMessage) {
+  private MessageDto createUserAdminDto(boolean successful, BindingResult bindingResult, String successMessage, HttpSession session) {
     MessageDto userAdminDto = new MessageDto();
     userAdminDto.setSuccessful(successful);
     String message;
@@ -162,6 +159,12 @@ public class AdminController {
       message = successMessage;
     }
     userAdminDto.setMessage(message);
+    addRoleAndId(userAdminDto, session);
     return userAdminDto;
+  }
+
+  private void addRoleAndId(AbstractDto dto, HttpSession session) {
+    dto.setUser_role((String) session.getAttribute("user_role"));
+    dto.setUser_id((Long) session.getAttribute("user_id"));
   }
 }

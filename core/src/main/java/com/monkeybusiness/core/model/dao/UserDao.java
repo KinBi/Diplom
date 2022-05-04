@@ -19,5 +19,7 @@ public interface UserDao {
 
   void update(User user);
 
+  void updateRole(User user);
+
   void delete(Long id);
 }
