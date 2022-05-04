@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void updateRole(User user) {
+    jdbcUserDao.updateRole(user);
+  }
+
+  @Override
   public void delete(Long id) {
     jdbcUserDao.delete(id);
   }

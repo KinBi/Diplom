@@ -1,6 +1,6 @@
 package com.monkeybusiness.diplom.web.controller.dto;
 
-public class MessageDto {
+public class MessageDto extends AbstractDto {
   private String message;
   private boolean successful;
 

@@ -2,7 +2,7 @@ package com.monkeybusiness.diplom.web.controller.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class UserDto {
+public class UserDto extends AbstractDto {
   private String name;
 
   private String surname;

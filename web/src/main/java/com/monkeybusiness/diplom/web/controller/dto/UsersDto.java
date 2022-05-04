@@ -2,7 +2,7 @@ package com.monkeybusiness.diplom.web.controller.dto;
 
 import java.util.List;
 
-public class UsersDto {
+public class UsersDto extends AbstractDto {
   private List<UserDto> users;
 
   public List<UserDto> getUsers() {

@@ -22,6 +22,8 @@ public class JdbcUserDao implements UserDao {
   public static final String SELECT_USER_BY_GROUP = "SELECT * FROM users WHERE groupId = ?";
   public static final String SELECT_ALL_USERS = "SELECT * FROM users";
   public static final String SELECT_USERS_ID_BY_LOGIN = "SELECT users.id FROM users WHERE login = ?";
+  public static final String UPDATE_USER_ROLE = "UPDATE users SET login = ?, password = ?, role = ?, practiceId = ?, groupId = ? " +
+          "WHERE id = ?";
   public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, role = ?, practiceId = ?, groupId = ? " +
           "WHERE id = ?";
   public static final String SELECT_GROUP_ID_BY_USER_ID = "SELECT studentGroup.id FROM studentGroup " +
@@ -111,6 +113,12 @@ public class JdbcUserDao implements UserDao {
     user.setId(getUserId(user).orElseThrow(RuntimeException::new)); // fixme
     jdbcTemplate.update(UPDATE_USER, user.getLogin(), user.getPassword(), user.getRole(),
             user.getPracticeId(), user.getGroup().getId(), user.getId());
+  }
+
+  @Override
+  public void updateRole(User user) {
+    user.setId(getUserId(user).orElseThrow(RuntimeException::new)); // fixme
+    jdbcTemplate.update(UPDATE_USER_ROLE, user.getId());
   }
 
   @Override

@@ -20,6 +20,8 @@ public interface UserService {
 
   void update(User user);
 
+  void updateRole(User user);
+
   void delete(Long id);
 
   void deleteByLogin(String login);

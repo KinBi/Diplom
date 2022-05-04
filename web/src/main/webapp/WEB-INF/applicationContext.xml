@@ -8,4 +8,5 @@
     <import resource="classpath:context/applicationContext-core.xml"/>
 
     <context:property-placeholder location="/WEB-INF/conf/application.properties"/>
+
 </beans>

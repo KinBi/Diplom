@@ -1,6 +1,6 @@
-package com.monkeybusiness.diplom.web.controller.validation;
+package com.monkeybusiness.diplom.web.controller.dto;
 
-public class PracticeWrapper {
+public class PracticeDto extends AbstractDto {
   private Long id;
   private String location;
   private String status;

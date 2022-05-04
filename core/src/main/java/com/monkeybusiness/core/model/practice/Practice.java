@@ -4,10 +4,8 @@ import java.util.Objects;
 
 public class Practice {
   private Long id;
-  private String practiceDateStart;
-  private String practiceDateEnd;
   private String location;
-  private PracticeStatus status;
+  private String status;
 
   public Long getId() {
     return id;
@@ -15,22 +13,6 @@ public class Practice {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public String getPracticeDateStart() {
-    return practiceDateStart;
-  }
-
-  public void setPracticeDateStart(String practiceDateStart) {
-    this.practiceDateStart = practiceDateStart;
-  }
-
-  public String getPracticeDateEnd() {
-    return practiceDateEnd;
-  }
-
-  public void setPracticeDateEnd(String practiceDateEnd) {
-    this.practiceDateEnd = practiceDateEnd;
   }
 
   public String getLocation() {
@@ -41,13 +23,14 @@ public class Practice {
     this.location = location;
   }
 
-  public PracticeStatus getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(PracticeStatus status) {
+  public void setStatus(String status) {
     this.status = status;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
