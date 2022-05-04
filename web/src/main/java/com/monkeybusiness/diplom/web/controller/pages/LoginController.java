@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 public class LoginController {
   public static final String DELIMITER = "\n";
   public static final String BAD_PASSWORD_MESSAGE = "Bad password";
-  public static final String USER_ID_SESSION_ATTRIBUTE = "userId";
+  public static final String USER_ID_SESSION_ATTRIBUTE = "user_id";
+  public static final String USER_ROLE_SESSION_ATTRIBUTE = "user_role";
 
   @Autowired
   private UserService userService;
@@ -44,6 +45,7 @@ public class LoginController {
         bindingResult.addError(new ObjectError(User.class.toString(), BAD_PASSWORD_MESSAGE));
       } else {
         session.setAttribute(USER_ID_SESSION_ATTRIBUTE, validUser.getId());
+        session.setAttribute(USER_ROLE_SESSION_ATTRIBUTE, validUser.getRole());
       }
     }
     return createLoginDto(successful, bindingResult, session);
