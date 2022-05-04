@@ -43,6 +43,7 @@ public class ZavkafController {
     return practiceService.getAllPractices();
   }
 
+
 //  @DeleteMapping
 //  @ResponseBody
 //  public MessageDto deletePractice(@RequestBody @Valid IdWrapper idWrapper, BindingResult bindingResult) {
